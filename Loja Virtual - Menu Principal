@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    <header><h1>MENU - Loja Virtual</h1></header>
+
+    <style>
+        .centro {
+            border: 1px solid slateblue;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: rgb(240, 239, 239);
+            width: 250px;
+            height: 95px;
+        }
+    </style>
+
+    <div class="centro">
+        <p>
+            <h3>Cadastrar Produto Novo</h3>
+            <a href=" Local\Nome\do\Arquivo.html " target="_blank">
+                <input type="button" value="Clique Aqui!">
+            </a>
+        </p>
+    </div><br />
+    <div class="centro">
+        <p>
+            <h3>Comprar Produto</h3>
+            <a href="" target="_blank">
+            <a href=" Local\Nome\do\Arquivo.html " target="_blank">
+                <input type="button" value="Clique Aqui!">
+            </a>
+        </p>
+    </div><br />
+    <div class="centro">
+        <p>
+            <h3>Inserir Produto Em Estoque</h3>
+            <a href=" Local\Nome\do\Arquivo.html " target="_blank">
+                <input type="button" value="Clique Aqui!">
+            </a>
+        </p>
+    </div><br />
+    <div class="centro">
+        <p>
+            <h3>Vender Produto</h3>
+            <a href=" Local\Nome\do\Arquivo.html " target="_blank">
+                <input type="button" value="Clique Aqui!">
+            </a>
+        </p>
+    </div><br />
+
+</body>
+</html>

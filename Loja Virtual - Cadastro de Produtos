@@ -56,7 +56,8 @@ function cadastrarPorduto() {
     var vlrVenda = document.getElementById('vlrVenda').value;
 
     bdd.transaction(function(novoCadastro) {
-        novoCadastro.executeSql("INSERT INTO produto (codigo, nome, descricao, vlrCompra, vlrVenda) VALUES (?, ?, ?, ?, ?)", [codigo, nome, descricao, vlrCompra, vlrVenda],
+        novoCadastro.executeSql("INSERT INTO produto (codigo, nome, descricao, vlrCompra, vlrVenda) VALUES (?, ?, ?, ?, ?)",
+        [codigo, nome, descricao, vlrCompra, vlrVenda],
             function (novoCadastro, result) {
                 alert("Novo produto cadastrado com sucesso!");
             },

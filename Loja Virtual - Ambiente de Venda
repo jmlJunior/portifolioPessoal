@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="cache-contol" content="private">
+
+    <title>Venda</title>
+    
+    <style>
+        .geral {
+            height: 130px;
+            display: flex;
+        }
+        .centro {
+            border: 1px solid slateblue;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: rgb(240, 239, 239);
+            width: 250px;
+            height: 95px;
+        }
+        .texto {
+            border-radius: 5px;
+            background-color: rgb(255, 255, 255);
+            width: 150px;
+            height: 65px;
+        }
+        .preco {
+            border: 1px solid slateblue;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: rgb(240, 239, 239);
+            width: 200px;
+            height: 65px;
+        }
+        .final {
+            top: auto;
+        }
+    </style>
+
+</head>
+<body>
+    <header><h1>LOJA VIRTUAL</h1></header>
+    <h3>AMBIENTE DE VENDA</h3>
+
+    <div class="geral">
+        <div class="centro">
+            <p>
+                Informe o código do produto:
+                <input type="text" id="codigo" autofocus="autofocus" size="5">
+            </p>
+            <input type="button" id="pesquisar" name="pesquisar" value="Pesquisar" />
+            <p id="pesquisar"></p>
+
+            <script type="text/javascript">
+                var bdd = openDatabase("bdLojaVirtual", "2.0", "LojaVirtual", 2000000);
+                var msg;
+
+                var button = document.getElementById("pesquisar");
+                button.onclick = function consultarProduto() {
+                    var produto = document.getElementById("codigo").value;
+                    produto = produto;
+                    localStorage.setItem("Item selecionado", produto);
+                    //document.getElementById("aqui").innerHTML = "Intem selecionado: " + localStorage.getItem("Item selecionado");
+                }
+
+                bdd.transaction(function (selecionar) {
+                    var produto = localStorage.getItem("Item selecionado");
+                    selecionar.executeSql ('SELECT nome FROM produto WHERE codigo = 100013', [], function (selecionar, results) {
+                        var len = results.rows.length, i;
+
+                        for (i = 0; i < len; i++) {
+                            msg = "<p><b>" + results.rows.item(i).nome + "</b></p>";
+                            document.querySelector('#aqui').innerHTML += msg;
+                        }
+                    }, null);
+                });
+
+            </script>
+
+        </div>
+        <div class="centro">
+            <p>Nome do produto:</p>
+            <p id="aqui"></p>
+        </div>
+    </div>
+
+    <div class="texto">
+        <p>
+            <label for="descricao">D E S C R I Ç Ã O:</label>
+            <input type="text" id="descricao" size="70">
+        </p><br />
+    </div>
+
+    <p></p>
+    <div class="preco">
+        <label for="vlrCompra">Quantidade no Estoque:</label>
+        <p></p>
+        <input type="text" id="vlrCompra" size="10"><br /><br />
+    </div>
+    <p></p>
+    <div class="preco">
+        <label for="vlrVenda">Preço de Venda:</label>
+        <p></p>
+        <input type="text" id="vlrVenda" size="10"><br />
+    </div>
+        <p>
+            <input type="submit" value="CONFIRMA" />
+        </p>
+        <input type="button" value="Fechar" onclick="javascript:window.close()">
+</body>
+</html>

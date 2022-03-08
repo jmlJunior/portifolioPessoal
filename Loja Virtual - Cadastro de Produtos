@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="cache-contol" content="private">
+
+    <title>Loja-Virtual</title>
+
+    <style>
+
+        .geral {
+            height: 130px;
+            display: flex;
+        }
+
+        .centro {
+            border: 1px solid slateblue;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: rgb(240, 239, 239);
+            width: 250px;
+            height: 95px;
+        }
+
+        .texto {
+            border-radius: 5px;
+            background-color: rgb(255, 255, 255);
+            width: 150px;
+            height: 65px;
+        }
+
+        .preco {
+            border: 1px solid slateblue;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: rgb(240, 239, 239);
+            width: 150px;
+            height: 65px;
+
+        }
+
+        .final {
+            top: auto;
+        }
+
+    </style>
+
+    <script language="javascript" src="CadastrarProduto.js"></script>
+
+</head>
+
+<body>
+
+    <header><h1>LOJA VIRTUAL</h1></header>
+
+    <h3>CADASTRE UM NOVO PRODUTO</h3>
+
+    <form onsubmit="cadastrarPorduto()">
+        <div class="geral">
+            <div class="centro">
+                <p>
+                    <label for="codigo">Cadastre o código do produto:</label>
+                    <input type="text" id="codigo" size="5">
+                </p>
+            </div>
+            <div class="centro">
+                <p>
+                    <label for="nome">Cadastre o nome do produto:</label>
+                    <input type="text" id="nome" size="30">
+                </p>
+            </div>
+        </div>
+
+        <div class="texto">
+            <p>
+                <label for="descricao">D E S C R I Ç Ã O:</label>
+                <input type="text" id="descricao" size="70">
+            </p><br />
+        </div>
+
+        <p></p>
+        <div class="preco">
+            <label for="vlrCompra">Preço de Compra:</label>
+            <p></p>
+            <input type="text" id="vlrCompra" size="10"><br /><br />
+        </div>
+        <p></p>
+        <div class="preco">
+            <label for="vlrVenda">Preço de Venda:</label>
+            <p></p>
+            <input type="text" id="vlrVenda" size="10"><br />
+        </div>
+
+            <p>
+                <input type="submit" value="CADASTRAR" />
+            </p>
+
+            <input type="button" value="Fechar" onclick="javascript:window.close()">
+
+    </form>
+</body>
+</html>

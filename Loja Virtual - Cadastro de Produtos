@@ -9,12 +9,10 @@
     <title>Loja-Virtual</title>
 
     <style>
-
         .geral {
             height: 130px;
             display: flex;
         }
-
         .centro {
             border: 1px solid slateblue;
             padding: 5px;
@@ -23,14 +21,12 @@
             width: 250px;
             height: 95px;
         }
-
         .texto {
             border-radius: 5px;
             background-color: rgb(255, 255, 255);
             width: 150px;
             height: 65px;
         }
-
         .preco {
             border: 1px solid slateblue;
             padding: 5px;
@@ -38,25 +34,44 @@
             background-color: rgb(240, 239, 239);
             width: 150px;
             height: 65px;
-
         }
-
         .final {
             top: auto;
         }
-
     </style>
 
-    <script language="javascript" src="CadastrarProduto.js"></script>
+    <script>
+    var bdd = openDatabase("bdLojaVirtual", "2.0", "LojaVirtual", 2000000);
+        bdd.transaction(function (criaDatabase) {
+    criaDatabase.executeSql
+        //("DROP TABLE produto");
+        ("CREATE TABLE IF NOT EXISTS produto (id INTEGER PRIMARY KEY, codigo NUMBER UNIQUE, nome TEXT, descricao TEXT, vlrCompra DOUBLE, vlrVenda DOUBLE)");
+});
 
+function cadastrarPorduto() {
+    var codigo = document.getElementById('codigo').value;
+    var nome = document.getElementById('nome').value;
+    var descricao = document.getElementById('descricao').value;
+    var vlrCompra = document.getElementById('vlrCompra').value;
+    var vlrVenda = document.getElementById('vlrVenda').value;
+
+    bdd.transaction(function(novoCadastro) {
+        novoCadastro.executeSql("INSERT INTO produto (codigo, nome, descricao, vlrCompra, vlrVenda) VALUES (?, ?, ?, ?, ?)", [codigo, nome, descricao, vlrCompra, vlrVenda],
+            function (novoCadastro, result) {
+                alert("Novo produto cadastrado com sucesso!");
+            },
+            function (novoCadastro, error) {
+                alert("Erro ao tentar cadastra o produto! Tente novamente!");
+            }
+        );
+    });
+}
+    </script>
 </head>
-
 <body>
-
     <header><h1>LOJA VIRTUAL</h1></header>
-
     <h3>CADASTRE UM NOVO PRODUTO</h3>
-
+    
     <form onsubmit="cadastrarPorduto()">
         <div class="geral">
             <div class="centro">
@@ -92,13 +107,10 @@
             <p></p>
             <input type="text" id="vlrVenda" size="10"><br />
         </div>
-
             <p>
                 <input type="submit" value="CADASTRAR" />
             </p>
-
             <input type="button" value="Fechar" onclick="javascript:window.close()">
-
     </form>
 </body>
 </html>

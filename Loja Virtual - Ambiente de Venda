@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="cache-contol" content="private">
 
     <title>Loja Virtual - Ambiente de Venda</title>
-
     <style>
         .geral {
             height: 130px;
@@ -50,17 +48,16 @@
 
 </head>
 <body>
-
     <header><h1>LOJA VIRTUAL</h1></header>
     <h3>AMBIENTE DE VENDA</h3>
 
     <div class="geral">
         <div class="centro">
-            <p>
-                <label>
-                    Informe o código do produto:
-                    <input type="text" id="codigo" autofocus="autofocus" size="5">
-                </label>
+        <p>
+        <label>
+           Informe o código do produto:
+           <input type="text" id="codigo" autofocus="autofocus" size="5">
+        </label>
             </p>
             <input type="button" id="pesquisar" name="pesquisar" value="Pesquisar" />
             <input type="button" id="limpar" name="limpar" value="Limpar" onClick="window.location.reload()" />

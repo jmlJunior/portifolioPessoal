@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="cache-contol" content="private">
 
-    <title>Venda</title>
-    
+    <title>Loja Virtual - Ambiente de Venda</title>
+
     <style>
         .geral {
             height: 130px;
@@ -23,8 +24,16 @@
         .texto {
             border-radius: 5px;
             background-color: rgb(255, 255, 255);
-            width: 150px;
+            width: 200px;
             height: 65px;
+        }
+        .textao {
+            border: 1px solid slateblue;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: rgb(255, 255, 255);
+            width: 510px;
+            height: 35px;
         }
         .preco {
             border: 1px solid slateblue;
@@ -41,72 +50,79 @@
 
 </head>
 <body>
+
     <header><h1>LOJA VIRTUAL</h1></header>
     <h3>AMBIENTE DE VENDA</h3>
 
     <div class="geral">
         <div class="centro">
             <p>
-                Informe o código do produto:
-                <input type="text" id="codigo" autofocus="autofocus" size="5">
+                <label>
+                    Informe o código do produto:
+                    <input type="text" id="codigo" autofocus="autofocus" size="5">
+                </label>
             </p>
             <input type="button" id="pesquisar" name="pesquisar" value="Pesquisar" />
-            <p id="pesquisar"></p>
+            <input type="button" id="limpar" name="limpar" value="Limpar" onClick="window.location.reload()" />
 
             <script type="text/javascript">
-                var bdd = openDatabase("bdLojaVirtual", "2.0", "LojaVirtual", 2000000);
-                var msg;
+                var bdd = openDatabase("bdLojaVirtual", "2.0", "LojaVirtual", 20000);
+                var nome;
+                var descricao;
+                var vlrVenda;
 
                 var button = document.getElementById("pesquisar");
                 button.onclick = function consultarProduto() {
-                    var produto = document.getElementById("codigo").value;
-                    produto = produto;
-                    localStorage.setItem("Item selecionado", produto);
-                    //document.getElementById("aqui").innerHTML = "Intem selecionado: " + localStorage.getItem("Item selecionado");
+                    if (nome == null) {
+                        bdd.transaction(function (selecionar) {
+                            var produto = document.getElementById("codigo").value;
+                            selecionar.executeSql('SELECT nome, descricao, vlrVenda FROM produto WHERE codigo = ?', [produto], function (selecionar, results) {
+                                var len = results.rows.length, i;
+
+                                for (i = 0; i < len; i++) {
+                                    nome = "<p><b>" + results.rows.item(i).nome + "</b></p>";
+                                    document.querySelector('#produto').innerHTML += nome;
+                                    descricao = "<b>" + results.rows.item(i).descricao + "</b>";
+                                    document.querySelector('#descricao').innerHTML += descricao;
+                                    vlrVenda = "<b>R$ " + results.rows.item(i).vlrVenda + "</b>";
+                                    document.querySelector('#vlrVenda').innerHTML += vlrVenda;
+                                }
+                            }, null);
+                        });
+                    }
                 }
-
-                bdd.transaction(function (selecionar) {
-                    var produto = localStorage.getItem("Item selecionado");
-                    selecionar.executeSql ('SELECT nome FROM produto WHERE codigo = 100013', [], function (selecionar, results) {
-                        var len = results.rows.length, i;
-
-                        for (i = 0; i < len; i++) {
-                            msg = "<p><b>" + results.rows.item(i).nome + "</b></p>";
-                            document.querySelector('#aqui').innerHTML += msg;
-                        }
-                    }, null);
-                });
             </script>
 
         </div>
         <div class="centro">
             <p>Nome do produto:</p>
-            <p id="aqui"></p>
+            <p id="produto"></p>
         </div>
     </div>
 
     <div class="texto">
-        <p>
-            <label for="descricao">D E S C R I Ç Ã O:</label>
-            <input type="text" id="descricao" size="70">
-        </p><br />
+        <p></p>
+            D E S C R I Ç Ã O:
+        <div class="textao" id="descricao"></div>
+            <p></p>
+        <br />
     </div>
 
     <p></p>
     <div class="preco">
-        <label for="vlrCompra">Quantidade no Estoque:</label>
-        <p></p>
-        <input type="text" id="vlrCompra" size="10"><br /><br />
+        Quantidade no Estoque:
+        <p id="estoque"></p>
     </div>
     <p></p>
     <div class="preco">
-        <label for="vlrVenda">Preço de Venda:</label>
-        <p></p>
-        <input type="text" id="vlrVenda" size="10"><br />
+        Preço de Venda:
+        <p id="vlrVenda"></p>
     </div>
-        <p>
-            <input type="submit" value="CONFIRMA" />
-        </p>
+
+    <p>
+        <input type="submit" value="CONFIRMA" />
         <input type="button" value="Fechar" onclick="javascript:window.close()">
+    </p>
+
 </body>
 </html>

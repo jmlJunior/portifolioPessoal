@@ -1,0 +1,632 @@
+package painel;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Image;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.ImageIcon;
+
+import javax.swing.JLabel;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+public class PainelDeVotacao extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField dezena;
+	private JTextField unidade;
+
+	//Launch the application.
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PainelDeVotacao frame = new PainelDeVotacao();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public static String dn, un;
+
+	//Create the frame.
+	public PainelDeVotacao() {
+	
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 702, 410);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel justicaEleitoral = new JLabel("");
+		Image img1 = new ImageIcon(this.getClass().getResource("/Justiça Eleitoral.jpg"))
+				                                  .getImage()
+				                                  .getScaledInstance(180, 68, Image.SCALE_SMOOTH);
+		justicaEleitoral.setIcon(new ImageIcon(img1));
+		justicaEleitoral.setBounds(448, 33, 180, 68);
+		contentPane.add(justicaEleitoral);
+		
+		JLabel candidato = new JLabel("");
+		candidato.setFont(new Font("Arial", Font.BOLD, 65));
+		candidato.setBounds(278, 21, 120, 160);
+		contentPane.add(candidato);
+		
+		JLabel vice = new JLabel("");
+		vice.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		vice.setHorizontalAlignment(SwingConstants.RIGHT);
+		vice.setBounds(338, 185, 60, 75);
+		contentPane.add(vice);
+		
+		JLabel vcand = new JLabel("");
+		vcand.setHorizontalAlignment(SwingConstants.RIGHT);
+		vcand.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		vcand.setBounds(159, 246, 169, 14);
+		contentPane.add(vcand);
+		
+		JLabel choice = new JLabel("");
+		choice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		choice.setBounds(88, 204, 310, 14);
+		contentPane.add(choice);
+		
+		JLabel partido = new JLabel("");
+		partido.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		partido.setBounds(98, 228, 94, 14);
+		contentPane.add(partido);
+		
+		JLabel confirmacao = new JLabel("");
+		confirmacao.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		confirmacao.setBounds(108, 171, 112, 30);
+		contentPane.add(confirmacao);
+		
+		dezena = new JTextField();
+		dezena.setHorizontalAlignment(SwingConstants.CENTER);
+		dezena.setFont(new Font("Tahoma", Font.PLAIN, 38));
+		dezena.setBounds(124, 105, 33, 55);
+		dezena.setColumns(10);
+		contentPane.add(dezena);
+		dezena.requestFocus();
+		
+		unidade = new JTextField();
+		unidade.setHorizontalAlignment(SwingConstants.CENTER);
+		unidade.setFont(new Font("Tahoma", Font.PLAIN, 38));
+		unidade.setBounds(159, 105, 33, 55);
+		unidade.setColumns(10);
+		contentPane.add(unidade);
+		
+		JButton btnCorrige = new JButton("CORRIGE");
+		btnCorrige.setBackground(Color.ORANGE);
+		btnCorrige.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Image img = new ImageIcon(this.getClass().getResource(""))
+		                                                 .getImage()
+		                                                 .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+				dezena.setText("");
+				unidade.setText("");
+				dn = "";
+				un = "";
+				candidato.setIcon(new ImageIcon(img));
+				vice.setIcon(new ImageIcon(img));
+				candidato.setText("");
+				vcand.setText("");
+				choice.setText("");
+				partido.setText("");
+				confirmacao.setText("");
+				dezena.requestFocus();
+			}
+		});
+		btnCorrige.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnCorrige.setBounds(463, 299, 94, 36);
+		contentPane.add(btnCorrige);
+		
+		JButton btnBranco = new JButton("BRANCO");
+		btnBranco.setBackground(Color.WHITE);
+		btnBranco.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Image img = new ImageIcon(this.getClass().getResource(""))
+		                                                 .getImage()
+		                                                 .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+	            candidato.setIcon(new ImageIcon(img));
+	            vice.setIcon(new ImageIcon(img));
+				candidato.setText("FIM");
+				vcand.setText("");
+				dezena.setText("");
+				unidade.setText("");
+				dn = "";
+				un = "";
+				confirmacao.setText("VOTOU");
+				dezena.requestFocus();
+			}
+		});
+		btnBranco.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnBranco.setBounds(367, 299, 86, 36);
+		contentPane.add(btnBranco);
+		
+		JButton btnConfirma = new JButton("CONFIRMA");
+		btnConfirma.setBackground(Color.GREEN);
+		btnConfirma.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!dezena.getText().equals("")) {
+					Image img = new ImageIcon(this.getClass().getResource(""))
+			                .getImage()
+			                .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+		            candidato.setIcon(new ImageIcon(img));
+		            vice.setIcon(new ImageIcon(img));
+				    candidato.setText("FIM");
+				    vcand.setText("");
+				    dezena.setText("");
+				    unidade.setText("");
+					dn = "";
+					un = "";
+				    confirmacao.setText("VOTOU");
+				    dezena.requestFocus();
+				}
+			}
+		});
+		btnConfirma.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnConfirma.setBounds(567, 290, 93, 45);
+		contentPane.add(btnConfirma);
+		
+		/*
+		Esse trecho do código inicia a janela com todos os campos em branco e também limpa os campos após 15 segundos
+		Foi incluído somente para simular uma votação onde cada eleitor teria somente 15 segundos para votar
+		Talvez seja interessante incluir uma condição para 15 segundos de inatividade da tela...
+		*/
+		//*********************************************************************************************
+		Timer tempo = new Timer();
+		final long interval = (1000 * 15);
+		TimerTask limpar = new TimerTask() {
+			
+			@Override
+			public void run() {
+				
+				dezena.setText("");
+				unidade.setText("");
+				dn = "";
+				un = "";
+				Image img = new ImageIcon(this.getClass().getResource(""))
+		                .getImage()
+		                .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+	            candidato.setIcon(new ImageIcon(img));
+	            vice.setIcon(new ImageIcon(img));
+				candidato.setText("");
+				vcand.setText("");
+				choice.setText("");
+				partido.setText("");
+				confirmacao.setText("");
+				dezena.requestFocus();
+			}
+		};
+		
+		tempo.scheduleAtFixedRate(limpar, 0, interval);
+		//*********************************************************************************************
+	
+		JButton btnN1 = new JButton("1");
+		btnN1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (dezena.getText().equals("")) {
+					dezena.setText("1");
+				    unidade.requestFocus();
+				    unidade.setText("");
+				    dn = "1";
+				}
+			}
+		});
+		btnN1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (unidade.getText().equals("")) {
+					unidade.setText("1");
+					un = "1";
+					
+					if ((dn.equals("2")) && (un.equals("1"))) {
+						Image img21 = new ImageIcon(this.getClass().getResource("/21.jpg"))
+			                                                      .getImage()
+			                                                      .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+			            candidato.setIcon(new ImageIcon(img21));
+			            choice.setText("SOFIA MANZANO");
+			            partido.setText("PCB");
+			            vcand.setText("Vice: Antonio Alves");
+			            
+			            Image imgv21 = new ImageIcon(this.getClass().getResource("/v21.jpg"))
+                                                                    .getImage()
+                                                                    .getScaledInstance(60, 75, Image.SCALE_SMOOTH);
+                        vice.setIcon(new ImageIcon(imgv21));
+					}
+				}
+			}
+		});
+		btnN1.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnN1.setBounds(464, 123, 39, 30);
+		contentPane.add(btnN1);
+		
+		JButton btnN2 = new JButton("2");
+		btnN2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (dezena.getText().equals("")) {
+				    dezena.setText("2");
+				    unidade.requestFocus();
+				    unidade.setText("");
+				    dn = "2";
+				}
+			}
+		});
+		btnN2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (unidade.getText().equals("")) {
+					unidade.setText("2");
+					un = "2";
+					
+					if ((dn.equals("1")) && (un.equals("2"))) {
+						Image img12 = new ImageIcon(this.getClass().getResource("/12.jpg"))
+			                                                      .getImage()
+			                                                      .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+			            candidato.setIcon(new ImageIcon(img12));
+			            choice.setText("CIRO GOMES");
+			            partido.setText("PDT");
+			            vcand.setText("Vice: Ana Paula Matos");
+			            
+			            Image imgv12 = new ImageIcon(this.getClass().getResource("/v12.jpg"))
+                                                                    .getImage()
+                                                                    .getScaledInstance(60, 75, Image.SCALE_SMOOTH);
+                        vice.setIcon(new ImageIcon(imgv12));
+			            
+					}
+					
+					if ((dn.equals("2")) && (un.equals("2"))) {
+						Image img22 = new ImageIcon(this.getClass().getResource("/22.jpg"))
+			                                                      .getImage()
+			                                                      .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+			            candidato.setIcon(new ImageIcon(img22));
+			            choice.setText("JAIR BOLSONARO");
+			            partido.setText("PL");
+			            vcand.setText("Vice: Braga Netto");
+			            
+			            Image imgv22 = new ImageIcon(this.getClass().getResource("/v22.jpg"))
+                                                                    .getImage()
+                                                                    .getScaledInstance(60, 75, Image.SCALE_SMOOTH);
+                        vice.setIcon(new ImageIcon(imgv22));
+					}
+				}
+			}
+		});
+		btnN2.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnN2.setBounds(516, 123, 39, 30);
+		contentPane.add(btnN2);
+		
+		JButton btnN3 = new JButton("3");
+		btnN3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (dezena.getText().equals("")) {
+				    dezena.setText("3");
+				    unidade.requestFocus();
+				    unidade.setText("");
+				    dn = "3";
+				}
+			}
+		});
+		btnN3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (unidade.getText().equals("")) {
+					unidade.setText("3");
+					un = "3";
+					
+					if ((dn.equals("1")) && (un.equals("3"))) {
+						Image img13 = new ImageIcon(this.getClass().getResource("/13.jpg"))
+			                                                      .getImage()
+			                                                      .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+			            candidato.setIcon(new ImageIcon(img13));
+			            choice.setText("LULA");
+			            partido.setText("PT");
+			            vcand.setText("Vice: Geraldo Alckmin");
+			            
+			            Image imgv13 = new ImageIcon(this.getClass().getResource("/v13.jpg"))
+                                                                    .getImage()
+                                                                    .getScaledInstance(60, 75, Image.SCALE_SMOOTH);
+                        vice.setIcon(new ImageIcon(imgv13));
+					}
+				}
+			}
+		});
+		btnN3.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnN3.setBounds(565, 123, 39, 30);
+		contentPane.add(btnN3);
+		
+		JButton btnN4 = new JButton("4");
+		btnN4.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnN4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (dezena.getText().equals("")) {
+				    dezena.setText("4");
+				    unidade.requestFocus();
+				    unidade.setText("");
+				    dn = "4";
+				}
+			}
+		});
+		btnN4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (unidade.getText().equals("")) {
+					unidade.setText("4");
+					un = "4";
+				}
+			}
+		});
+		btnN4.setBounds(464, 164, 39, 30);
+		contentPane.add(btnN4);
+		
+		JButton btnN5 = new JButton("5");
+		btnN5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (dezena.getText().equals("")) {
+				    dezena.setText("5");
+				    unidade.requestFocus();
+				    unidade.setText("");
+				    dn = "5";
+				}
+			}
+		});
+		btnN5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (unidade.getText().equals("")) {
+					unidade.setText("5");
+					un = "5";
+					
+					if ((dn.equals("1")) && (un.equals("5"))) {
+						Image img15 = new ImageIcon(this.getClass().getResource("/15.jpg"))
+			                                                      .getImage()
+			                                                      .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+			            candidato.setIcon(new ImageIcon(img15));
+			            choice.setText("SIMONE TEBET");
+			            partido.setText("MDB");
+			            vcand.setText("Vice: Mara Babrilli");
+			            
+			            Image imgv15 = new ImageIcon(this.getClass().getResource("/v15.jpg"))
+                                                                    .getImage()
+                                                                    .getScaledInstance(60, 75, Image.SCALE_SMOOTH);
+                        vice.setIcon(new ImageIcon(imgv15));
+					}
+				}
+			}
+		});
+		btnN5.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnN5.setBounds(516, 164, 39, 30);
+		contentPane.add(btnN5);
+		
+		JButton btnN6 = new JButton("6");
+		btnN6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (dezena.getText().equals("")) {
+					dezena.setText("6");
+					unidade.requestFocus();
+				    unidade.setText("");
+				    dn = "6";
+				}
+			}
+		});
+		btnN6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (unidade.getText().equals("")) {
+					unidade.setText("6");
+					un = "6";
+					
+					if ((dn.equals("1")) && (un.equals("6"))) {
+						Image img16 = new ImageIcon(this.getClass().getResource("/16.jpg"))
+			                                                      .getImage()
+			                                                      .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+			            candidato.setIcon(new ImageIcon(img16));
+			            choice.setText("VERA");
+			            partido.setText("PSTU");
+			            vcand.setText("Vice: Raquel Tremenbé");
+			            
+			            Image imgv16 = new ImageIcon(this.getClass().getResource("/v16.jpg"))
+                                                                    .getImage()
+                                                                    .getScaledInstance(60, 75, Image.SCALE_SMOOTH);
+                        vice.setIcon(new ImageIcon(imgv16));
+					}
+				}
+			}
+		});
+		btnN6.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnN6.setBounds(565, 164, 39, 30);
+		contentPane.add(btnN6);
+		
+		JButton btnN7 = new JButton("7");
+		btnN7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (dezena.getText().equals("")) {
+				    dezena.setText("7");
+				    unidade.requestFocus();
+				    unidade.setText("");
+				    dn = "7";
+				}
+			}
+		});
+		btnN7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (unidade.getText().equals("")) {
+					unidade.setText("7");
+					un = "7";
+				}
+			}
+		});
+		btnN7.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnN7.setBounds(464, 205, 39, 30);
+		contentPane.add(btnN7);
+		
+		JButton btnN8 = new JButton("8");
+		btnN8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (dezena.getText().equals("")) {
+				    dezena.setText("8");
+				    unidade.requestFocus();
+				    unidade.setText("");
+				    dn = "8";
+				}
+			}
+		});
+		btnN8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (unidade.getText().equals("")) {
+					unidade.setText("8");
+					un = "8";
+				}
+			}
+		});
+		btnN8.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnN8.setBounds(516, 205, 39, 30);
+		contentPane.add(btnN8);
+		
+		JButton btnN9 = new JButton("9");
+		btnN9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (dezena.getText().equals("")) {
+				    dezena.setText("9");
+				    unidade.requestFocus();
+				    unidade.setText("");
+				    dn = "9";
+				}
+			}
+		});
+		btnN9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (unidade.getText().equals("")) {
+					unidade.setText("9");
+					un = "9";
+				}
+			}
+		});
+		btnN9.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnN9.setBounds(565, 205, 39, 30);
+		contentPane.add(btnN9);
+		
+		JButton btnN0 = new JButton("0");
+		btnN0.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (dezena.getText().equals("")) {
+				    dezena.setText("0");
+				    unidade.requestFocus();
+				    unidade.setText("");
+				    dn = "0";
+				}
+			}
+		});
+		btnN0.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (unidade.getText().equals("")) {
+					unidade.setText("0");
+					un = "0";
+					
+					if ((dn.equals("3")) && (un.equals("0"))) {
+						Image img30 = new ImageIcon(this.getClass().getResource("/30.jpg"))
+			                                                      .getImage()
+			                                                      .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+			            candidato.setIcon(new ImageIcon(img30));
+			            choice.setText("FELIPE D'AVILA");
+			            partido.setText("NOVO");
+			            vcand.setText("Vice: Tiago Mitraud");
+			            
+			            Image imgv30 = new ImageIcon(this.getClass().getResource("/v30.jpg"))
+                                .getImage()
+                                .getScaledInstance(60, 75, Image.SCALE_SMOOTH);
+                        vice.setIcon(new ImageIcon(imgv30));
+					}
+					
+					if ((dn.equals("8")) && (un.equals("0"))) {
+						Image img80 = new ImageIcon(this.getClass().getResource("/80.jpg"))
+			                                                      .getImage()
+			                                                      .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+			            candidato.setIcon(new ImageIcon(img80));
+			            choice.setText("LÉO PÉRICLES");
+			            partido.setText("UP");
+			            vcand.setText("Vice: Samara Martins");
+			            
+			            Image imgv80 = new ImageIcon(this.getClass().getResource("/v80.jpg"))
+                                                                    .getImage()
+                                                                    .getScaledInstance(60, 75, Image.SCALE_SMOOTH);
+                        vice.setIcon(new ImageIcon(imgv80));
+					}
+					
+					if ((dn.equals("9")) && (un.equals("0"))) {
+						Image img90 = new ImageIcon(this.getClass().getResource("/90.jpg"))
+			                                                      .getImage()
+			                                                      .getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+			            candidato.setIcon(new ImageIcon(img90));
+			            choice.setText("PABLO MARÇAL");
+			            partido.setText("PROS");
+			            vcand.setText("Vice: Fátima Pérola Neggra");
+			            
+			            Image imgv90 = new ImageIcon(this.getClass().getResource("/v90.jpg"))
+                                                                    .getImage()
+                                                                    .getScaledInstance(60, 75, Image.SCALE_SMOOTH);
+                        vice.setIcon(new ImageIcon(imgv90));
+					}
+				}
+			}
+		});
+		
+		btnN0.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnN0.setBounds(516, 246, 39, 30);
+		contentPane.add(btnN0);
+			
+		JLabel head = new JLabel("SEU VOTO PARA");
+		head.setFont(new Font("Tahoma", Font.BOLD, 12));
+		head.setBounds(43, 33, 100, 14);
+		contentPane.add(head);
+		
+		JLabel cargo = new JLabel("PRESIDENTE");
+		cargo.setFont(new Font("Calibri", Font.BOLD, 22));
+		cargo.setBounds(100, 79, 120, 23);
+		contentPane.add(cargo);
+		
+		JLabel number = new JLabel("N\u00FAmero:");
+		number.setFont(new Font("Tahoma", Font.BOLD, 10));
+		number.setBounds(43, 123, 46, 14);
+		contentPane.add(number);
+		
+		JLabel name = new JLabel("Nome:");
+		name.setFont(new Font("Tahoma", Font.BOLD, 12));
+		name.setBounds(43, 205, 46, 14);
+		contentPane.add(name);
+		
+		JLabel group = new JLabel("Partido:");
+		group.setFont(new Font("Tahoma", Font.BOLD, 12));
+		group.setBounds(43, 230, 60, 14);
+		contentPane.add(group);
+		
+		JLabel instrucao = new JLabel("Aperte a tecla");
+		instrucao.setBounds(30, 290, 298, 14);
+		contentPane.add(instrucao);
+		
+		JLabel verde = new JLabel("VERDE para CONFIRMAR");
+		verde.setBounds(30, 305, 298, 14);
+		contentPane.add(verde);
+		
+		JLabel laranja = new JLabel("LARANJA para CORRIGIR");
+		laranja.setBounds(30, 321, 298, 14);
+		contentPane.add(laranja);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 3));
+		panel_1.setBounds(21, 11, 401, 265);
+		contentPane.add(panel_1);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0), 3));
+		panel.setBounds(23, 11, 398, 259);
+	}
+}
